@@ -1,3 +1,5 @@
+
+
 module.exports={
-    JWT_SECRET:"007B",
+    JWT_SECRET:process.env.JWTSECRET,
 }

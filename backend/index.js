@@ -5,9 +5,15 @@ const mongoose = require("mongoose");
 const rootrouter = require("./routes/index");
 const cors = require("cors")
 const port =3000;
+const dotenv = require('dotenv');
+dotenv.config({ path: './.env' });
+
+// Load environment variables from .env file
+
 
 async function main1() {
-    await mongoose.connect("mongodb+srv://vishawdeepsingh29:DxzYlg9wcjGuHKGh@cluster0.vovi9j4.mongodb.net/PayTM")
+
+    await mongoose.connect(process.env.MONGOURL)
 }
 main1().then(() => {
     console.log("connected to DB");

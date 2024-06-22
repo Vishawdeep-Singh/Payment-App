@@ -6,6 +6,7 @@ import { InputBox } from "../components/InputBox"
 import { Subheading } from "../components/Subheading"
 import axios from "axios"
 import { Navigate, useNavigate } from "react-router-dom"
+import { FailureFlashMessage, SingleFailureFlashMessage } from "./FlashMessage"
 
 
 
@@ -14,6 +15,10 @@ export const Signup = ()=>{
     const [firstName,Setfirstname]=useState("")
     const [lastName,Setlastname]=useState("")
     const [password,Setpassword]=useState("")
+    const [showMessages, setShowMessages] = useState(false);
+    const [messages, setMessages] = useState([]);
+    const [showMessage, setShowMessage] = useState(false);
+    const [message, setMessage] = useState('');
     const navigate = useNavigate(); // Hook to get the navigate function
 
     return <div className="bg-slate-300 h-screen flex justify-center items-center">
@@ -35,26 +40,42 @@ export const Signup = ()=>{
             }} placeholder={"123456"} label={"Password"}></InputBox>
             <div className="pt-4">
                 <Button onClick={async ()=>{
-                  let response=await axios.post("http://localhost:3000/api/v1/user/signup",{
-                        username,
-                        firstName,
-                        lastName,
-                        password
-                    })
-                    localStorage.setItem("token",response.data.token)
-                    if(response.data.msg==="User Created Successfully"){
-                        navigate('/dashboard');
+                    try{
+                        let response=await axios.post("http://localhost:3000/api/v1/user/signup",{
+                            username,
+                            firstName,
+                            lastName,
+                            password
+                        })
+                        console.log(response)
+                        localStorage.setItem("token",response.data.token)
+                        if(response.data.msg==="User Created Successfully"){
+                            navigate('/dashboard');
+                        }
+                        else if(response.data.msg==="Email already taken"){
+                            setMessage(response.data.msg);
+                            setShowMessage(true)
+                        }
+                        else {
+                            // Handle other cases
+                            setMessages(response.data.message.map(err => err.message));
+                            setShowMessages(true);
+                          }
                     }
-                    else {
-                        // Handle other cases
-                        console.log('User creation failed:', response.data.msg);
-                      }
+                    catch(err){
+                        console.log(err)
+                       
+                       
+                    }
+               
                 }} label={"Sign up"}></Button>
             </div>
             
             <BottomWarning label={"Already have an account?"} buttonText={"Sign in"} to={"/signin"} />
             </div>
         </div>
+        {showMessages && messages.length > 0 && <FailureFlashMessage message={messages} onClose={() => setShowMessages(false)} />}
+        {showMessage &&  <SingleFailureFlashMessage message={message} onClose={() => setShowMessage(false)} />}    
 
     </div>
 }

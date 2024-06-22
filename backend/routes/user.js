@@ -33,8 +33,8 @@ if(response.success){
 }
 else{
     console.log(response.error.issues)
-    res.status(411).json({
-        msg:"Incorrect inputs"
+    res.json({
+        message:response.error.issues
     })
 }
 }
@@ -47,8 +47,9 @@ if(response.success){
     next();
 }
 else{
-    res.status(411).json({
-        msg:"Incorrect inputs"
+    console.log(response.error.issues)
+    res.json({
+        message:response.error.issues
     })
 }
 }
@@ -57,7 +58,7 @@ const isValidUpdationData=(req,res,next)=>{
     let data =  req.body;
     let response=UserUpdateValidationSchema.safeParse(data);
     if(response.success){
-        console.log()
+      
         next();
     }
     else{
@@ -79,7 +80,7 @@ const isUserExist = async (req,res,next)=>{
        
     }
     else{
-        res.status(411).json({
+        res.json({
             msg: "Email already taken"
         })
     }
@@ -147,13 +148,14 @@ router.post("/signin",isValidSignInData,async (req,res)=>{
         }, JWT_SECRET);
   
         res.json({
+            message:"Logged In Successfully",
             token: token
         })
         return;
     }
     else{
-        res.status(411).json({
-            message: "Error while logging in"
+        res.json({
+            message: "User does not exist"
         })
     }
 })

@@ -42,7 +42,7 @@ router.post("/transfer",authMiddleware,async(req,res)=>{
 
     if(!account || account.balance<amount){
         await session.abortTransaction();
-        return res.status(400).json({
+        return res.json({
             message: "Insufficient balance"
         });
     }
@@ -52,7 +52,7 @@ router.post("/transfer",authMiddleware,async(req,res)=>{
     console.log(toaccount)
     if (!toaccount) {
         await session.abortTransaction();
-        return res.status(400).json({
+        return res.json({
             message: "Invalid account"
         });
     }

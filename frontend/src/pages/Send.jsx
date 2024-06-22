@@ -6,7 +6,7 @@ import { Button } from "../components/Button"
 import { Header } from "../components/Header"
 import { InputBox } from "../components/InputBox"
 import { Subheading } from "../components/Subheading"
-import { FlashMessage } from "./FlashMessage"
+import {  SingleFailureFlashMessage, SuccessFlashMessage } from "./FlashMessage"
 
 
 export const Send=()=>{
@@ -69,6 +69,14 @@ export const Send=()=>{
           navigate('/dashboard');
         }, 3000); // Redirect after 3 seconds
       }
+      else if(response.data.message==="Insufficient balance"){
+        setMessage("Insufficient balance");
+        setShowMessage(true)
+      }
+      else if(response.data.message==="Invalid account"){
+        setMessage("Invalid account");
+        setShowMessage(true)
+      }
                     }
                     
                     
@@ -88,7 +96,9 @@ export const Send=()=>{
 
             </div>
         </div>
-        {showMessage && <FlashMessage message={message} onClose={() => setShowMessage(false)} />}
-
+        {message==="Money transferred successfully!" && showMessage && <SuccessFlashMessage message={message} onClose={() => setShowMessage(false)} />}
+        {message=== "Insufficient balance"  && showMessage && <SingleFailureFlashMessage message={message} onClose={() => setShowMessage(false)} />}
+        {message ==="Invalid account"  && showMessage && <SingleFailureFlashMessage message={message} onClose={() => setShowMessage(false)} />}
+                
     </div>
 }
