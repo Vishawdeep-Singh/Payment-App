@@ -25,7 +25,7 @@ import { useNavigate } from "react-router-dom"
                 'authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json', // Optional: Set other headers if needed
               };
-          const response = await axios.get('http://localhost:3000/api/v1/account/balance', { headers });
+          const response = await axios.get('https://payment-app-zaq2.onrender.com/api/v1/account/balance', { headers });
           setBalance(response.data.balance)
       }
       catch(err){
@@ -47,7 +47,7 @@ import { useNavigate } from "react-router-dom"
             'authorization': `Bearer ${token}`,
             'Content-Type': 'application/json', // Optional: Set other headers if needed
           };
-        const response= await axios.get("http://localhost:3000/api/v1/user/info",{ headers });
+        const response= await axios.get("https://payment-app-zaq2.onrender.com/api/v1/user/info",{ headers });
         
         setInfo(response.data)
       }

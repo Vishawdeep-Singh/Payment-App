@@ -57,7 +57,7 @@ export const Send=()=>{
                           'authorization': `Bearer ${token}`,
                           'Content-Type': 'application/json',
                         };
-                        let response= await axios.post("http://localhost:3000/api/v1/account/transfer",{
+                        let response= await axios.post("https://payment-app-zaq2.onrender.com/api/v1/account/transfer",{
                         to:state.user._id,
                         amount:amount
                     },{headers})

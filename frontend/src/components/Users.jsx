@@ -12,7 +12,7 @@ const navigate = useNavigate();
     useEffect(()=>{
         const fetchUsers = async () => {
             try {
-              const response = await axios.get('http://localhost:3000/api/v1/user/bulk?filter='+filterVal);
+              const response = await axios.get('https://payment-app-zaq2.onrender.com/api/v1/user/bulk?filter='+filterVal);
               SetUsers(response.data.user);
             } catch (error) {
               console.error('Error fetching users:', error);

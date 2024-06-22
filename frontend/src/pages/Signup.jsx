@@ -41,7 +41,7 @@ export const Signup = ()=>{
             <div className="pt-4">
                 <Button onClick={async ()=>{
                     try{
-                        let response=await axios.post("http://localhost:3000/api/v1/user/signup",{
+                        let response=await axios.post("https://payment-app-zaq2.onrender.com/api/v1/user/signup",{
                             username,
                             firstName,
                             lastName,
