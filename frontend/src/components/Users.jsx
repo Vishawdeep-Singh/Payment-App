@@ -33,7 +33,7 @@ const navigate = useNavigate();
         );
       }
 return <div className="flex flex-col justify-evenly p-5">
-    <div className="font-bold text-lg">
+    <div className="font-bold sm:text-lg text-base">
         Users
     </div>
    <input onChange={(e)=>{
@@ -43,23 +43,23 @@ return <div className="flex flex-col justify-evenly p-5">
     if (user._id === id) {
         return null; // Skip rendering this user
       }
-    return <div key={index} className="flex justify-between mt-[25px] px-5" >
+    return <div key={index} className="flex justify-between mt-[25px] px-1" >
     <div className="flex items-center">
-         <div className="rounded-full h-12 w-12 bg-gray-200 flex justify-center mt-1 mr-2">
+         <div className="rounded-full sm:h-12 sm:w-12 bg-gray-200 flex justify-center mt-1 mr-2 h-9 w-9">
         <div className="flex flex-col justify-center  items-center text-lg h-full">
            {user.firstName.charAt(0)}
         </div>
 
     </div>
-    <div className="text-lg font-bold pl-4">{user.firstName+" "+user.lastName}</div>
+    <div className="sm:text-lg text-sm font-bold pl-4">{user.firstName+" "+user.lastName}</div>
     </div>
   
 
-    <div>
+    <div className="flex">
     <button onClick={ async()=>{
        
       navigate("/send",{state:{user}})
-    }} type="button" className=" text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Send Money</button>
+    }} type="button" className=" text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm sm:px-5 sm:py-2.5 px-2 py-2 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Send Money</button>
 
     </div>
    </div>
